@@ -1188,7 +1188,8 @@ namespace xt
         bool cond = it <= elt_ptr && elt_ptr < m_end;
         // More complicated than incrementing elt_ptr, but this avoids
         // false positive array-bounds warning on GCC 10
-        const T* src_ptr = cond ? it + (elt_ptr - it) + std::ptrdiff_t(1) : elt_ptr;
+        std::ptrdiff_t temp = elt_ptr - it;
+        const T* src_ptr = cond ? it + temp + std::ptrdiff_t(1) : elt_ptr;
         *it = *src_ptr;
         return it;
     }
